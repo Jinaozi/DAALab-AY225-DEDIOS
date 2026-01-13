@@ -19,7 +19,7 @@ def load_txt_file(filename):
     with open(filename, "r") as file:
         return [int(line.strip()) for line in file if line.strip()]
 
-data = load_txt_file("data.txt")
+data = load_txt_file("dataset.txt")
 sorted_data, time_taken = bubble_sort_desc(data)
 
 print("Sorted:", sorted_data)
