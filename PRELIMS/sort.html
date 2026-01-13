@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sortini</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: brush script mt, cursive;
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('sunshet.jpg');
+        }
+
+        .container {
+            position: fixed;
+            width: 800px;
+            padding: 30px;
+            background: #BE7534;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        select, button, input {
+            margin-top: 10px;
+            padding: 8px;
+            width: 100%;
+            font-size: 14px;
+            background-color: #F9B067;
+            border: 2px solid #DE8B42;
+        }
+
+        .order-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        pre {
+            text-align: left;
+            background: #FBC7A0;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Sortini</h2>
+
+    <input type="file" id="fileInput" accept=".txt">
+
+    <select id="menu">
+        <option value="bubble">Bubble Sort</option>
+        <option value="insertion">Insertion Sort</option>
+        <option value="merge">Merge Sort</option>
+    </select>
+
+    <div class="order-buttons">
+        <button onclick="runSort('asc')">Ascending</button>
+        <button onclick="runSort('desc')">Descending</button>
+    </div>
+
+    <h3>Result</h3>
+    <pre id="output"></pre>
+</div>
+
+<script>
+    function bubbleSort(arr, order) {
+        const start = performance.now();
+        let n = arr.length;
+
+        for (let i = 0; i < n; i++) {
+            let swapped = false;
+            for (let j = 0; j < n - i - 1; j++) {
+                if (
+                    (order === "asc" && arr[j] > arr[j + 1]) ||
+                    (order === "desc" && arr[j] < arr[j + 1])
+                ) {
+                    [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+        }
+
+        return { result: arr, time: (performance.now() - start) / 1000 };
+    }
+
+    function insertionSort(arr, order) {
+        const start = performance.now();
+
+        for (let i = 1; i < arr.length; i++) {
+            let key = arr[i];
+            let j = i - 1;
+
+            while (
+                j >= 0 &&
+                ((order === "asc" && arr[j] > key) ||
+                (order === "desc" && arr[j] < key))
+            ) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
+        }
+
+        return { result: arr, time: (performance.now() - start) / 1000 };
+    }
+
+    function mergeSort(arr, order) {
+        const start = performance.now();
+
+        function merge(left, right) {
+            let result = [];
+            while (left.length && right.length) {
+                if (
+                    (order === "asc" && left[0] < right[0]) ||
+                    (order === "desc" && left[0] > right[0])
+                ) {
+                    result.push(left.shift());
+                } else {
+                    result.push(right.shift());
+                }
+            }
+            return result.concat(left, right);
+        }
+
+        function sort(array) {
+            if (array.length <= 1) return array;
+            const mid = Math.floor(array.length / 2);
+            return merge(sort(array.slice(0, mid)), sort(array.slice(mid)));
+        }
+
+        const sorted = sort(arr);
+        return { result: sorted, time: (performance.now() - start) / 1000 };
+    }
+
+    function runSort(order) {
+        const fileInput = document.getElementById("fileInput");
+        const menu = document.getElementById("menu").value;
+        const output = document.getElementById("output");
+
+        if (!fileInput.files.length) {
+            output.textContent = "Please upload a .txt file.";
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const data = e.target.result
+                .split("\n")
+                .map(x => x.trim())
+                .filter(x => x !== "")
+                .map(Number);
+
+            let result;
+            if (menu === "bubble") result = bubbleSort([...data], order);
+            if (menu === "insertion") result = insertionSort([...data], order);
+            if (menu === "merge") result = mergeSort([...data], order);
+
+            output.textContent =
+                "Algorithm: " + menu.toUpperCase() + "\n" +
+                "Order: " + (order === "asc" ? "ASCENDING" : "DESCENDING") + "\n\n" +
+                "Sorted Output:\n" + result.result.join(", ") + "\n\n" +
+                "Time Taken: " + result.time.toFixed(6) + " seconds";
+        };
+
+        reader.readAsText(fileInput.files[0]);
+    }
+</script>
+
+</body>
+</html>
