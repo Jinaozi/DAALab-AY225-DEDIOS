@@ -1,102 +1,123 @@
-Sorting Algorithm Stress Test GUI
-Overview
+# Sorting Algorithm Stress Test GUI
 
-The Sorting Algorithm Stress Test GUI is a Python-based benchmarking application that evaluates the performance of three classic sorting algorithms using structured CSV datasets. The CSV file contains the columns ID, FirstName, and LastName.
+## Overview
 
-This project demonstrates the real-world performance difference between O(n²) algorithms (Bubble Sort and Insertion Sort) and the O(n log n) Merge Sort, reinforcing key concepts in algorithm analysis. The application provides a clean graphical interface for testing scalability and measuring execution time.
+The **Sorting Algorithm Stress Test GUI** is a Python-based benchmarking application that evaluates the performance of three classic sorting algorithms using structured CSV datasets. The CSV file contains the columns **ID**, **FirstName**, and **LastName**.
 
-Features
+This project demonstrates the real-world performance difference between **O(n²)** algorithms (Bubble Sort and Insertion Sort) and the **O(n log n)** Merge Sort, reinforcing key concepts in algorithm analysis. The application provides a clean graphical interface for testing scalability and measuring execution time.
 
-Column Selection: Sort by ID, FirstName, or LastName
+---
 
-Sorting Algorithm Selection: Bubble Sort, Insertion Sort, Merge Sort
+## Features
 
-Progress Bar: Displays live sorting progress with percentage
+* **Column Selection:** Sort by `ID`, `FirstName`, or `LastName`
+* **Sorting Algorithm Selection:** Bubble Sort, Insertion Sort, Merge Sort
+* **Progress Bar:** Displays live sorting progress with percentage
+* **Cancel Sorting:** Allows users to instantly stop long-running sorts
+* **Performance Metrics:** Measures load time, sort time, and total execution time
+* **Output Display:** Shows the first 10 rows of sorted results in a scrollable text box
+* **GUI-Based:** Built using Tkinter (no external libraries required)
 
-Cancel Sorting: Allows users to instantly stop long-running sorts
+---
 
-Performance Metrics: Measures load time, sort time, and total execution time
+## Requirements
 
-Output Display: Shows the first 10 rows of sorted results in a scrollable text box
+* Python 3.x
+* Standard Python libraries only:
 
-GUI-Based: Built using Tkinter (no external libraries required)
+  * `tkinter`
+  * `csv`
+  * `time`
+  * `threading`
+* No additional packages are required
 
-Requirements
+---
 
-Python 3.x
+## Usage
 
-Standard Python libraries only:
+1. **Open the project in VS Code**
 
-tkinter
+   * Ensure `sorting_gui.py` and the CSV file are in the same project directory.
 
-csv
+2. **Select Python Interpreter**
 
-time
+   * Press `Ctrl + Shift + P`
+   * Type **Python: Select Interpreter**
+   * Choose Python 3.x
 
-threading
+3. **Run the GUI**
 
-No additional packages are required
+   * Press `F5` or right-click `sorting_gui.py` → **Run Python File in Terminal**
 
-Usage
+4. **Select CSV File**
 
-Open the project in VS Code
+   * Click **Select CSV File**
+   * Choose the CSV file to benchmark
 
-Ensure sorting_gui.py and the CSV file are in the same project directory.
+5. **Select Column**
 
-Select Python Interpreter
+   * Choose `ID`, `FirstName`, or `LastName`
 
-Press Ctrl + Shift + P
+6. **Select Algorithm**
 
-Type Python: Select Interpreter
+   * Choose Bubble Sort, Insertion Sort, or Merge Sort
 
-Choose Python 3.x
+7. **Set Row Limit (N)**
 
-Run the GUI
+   * Enter the number of rows to sort (e.g., 1,000; 10,000; 100,000)
 
-Press F5 or right-click sorting_gui.py → Run Python File in Terminal
+8. **Run Sort**
 
-Select CSV File
+   * Click **Run Sort**
+   * Observe the progress bar and percentage indicator
 
-Click Select CSV File
+9. **Cancel Sort (Optional)**
 
-Choose the CSV file to benchmark
+   * Click **Cancel** to immediately stop execution
+   * The output box will display **CANCELLED!**
 
-Select Column
+10. **View Results**
 
-Choose ID, FirstName, or LastName
+    * The first 10 sorted values are displayed
+    * Performance metrics appear below the status label
 
-Select Algorithm
+---
 
-Choose Bubble Sort, Insertion Sort, or Merge Sort
+## Notes
 
-Set Row Limit (N)
+* All sorting algorithms are implemented **from scratch**
+* No built-in sorting functions such as `.sort()` or `sorted()` are used
+* Bubble Sort and Insertion Sort may take a very long time for large datasets
+* The progress bar and cancel function help manage long executions
 
-Enter the number of rows to sort (e.g., 1,000; 10,000; 100,000)
+---
 
-Run Sort
+## ⏱️ Time Benchmark Results (Total Execution Time)
 
-Click Run Sort
+### 1,000 Rows
 
-Observe the progress bar and percentage indicator
+* **Bubble Sort:** 0.4340 s
+* **Insertion Sort:** 0.4137 s
+* **Merge Sort:** 0.4421 s
 
-Cancel Sort (Optional)
+### 10,000 Rows
 
-Click Cancel to immediately stop execution
+* **Bubble Sort:** 9.1522 s
+* **Insertion Sort:** 6.5705 s
+* **Merge Sort:** 3.7654 s
 
-The output box will display CANCELLED!
+### 100,000 Rows
 
-View Results
+* **Bubble Sort:** 434.1950 s
+* **Insertion Sort:** 444.1477 s
+* **Merge Sort:** 38.1100 s
 
-The first 10 sorted values are displayed
+---
 
-Performance metrics appear below the status label
+## Conclusion
 
-Notes
+The benchmarking results clearly confirm theoretical time complexities:
 
-All sorting algorithms are implemented from scratch
-
-No built-in sorting functions such as .sort() or sorted() are used
-
-Bubble Sort and Insertion Sort may take a very long time for large datasets
-
-The progress bar and cancel function help manage long executions
+* **Bubble Sort** and **Insertion Sort** scale poorly due to their **O(n²)** complexity.
+* **Merge Sort** remains efficient even at large input sizes, validating its **O(n log n)** complexity.
+* This experiment demonstrates why modern applications rely on divide-and-conquer algorithms for large datasets.
