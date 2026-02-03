@@ -74,7 +74,6 @@ This project demonstrates the real-world performance difference between **O(n²)
 * All sorting algorithms are implemented **from scratch**
 * No built-in sorting functions such as `.sort()` or `sorted()` are used
 * Bubble Sort and Insertion Sort may take a very long time for large datasets
-* The progress bar and cancel function help manage long executions
 
 ---
 
