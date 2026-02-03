@@ -12,24 +12,10 @@ This project demonstrates the real-world performance difference between **O(n²)
 
 * **Column Selection:** Sort by `ID`, `FirstName`, or `LastName`
 * **Sorting Algorithm Selection:** Bubble Sort, Insertion Sort, Merge Sort
-* **Progress Bar:** Displays live sorting progress with percentage
 * **Cancel Sorting:** Allows users to instantly stop long-running sorts
 * **Performance Metrics:** Measures load time, sort time, and total execution time
 * **Output Display:** Shows the first 10 rows of sorted results in a scrollable text box
 * **GUI-Based:** Built using Tkinter (no external libraries required)
-
----
-
-## Requirements
-
-* Python 3.x
-* Standard Python libraries only:
-
-  * `tkinter`
-  * `csv`
-  * `time`
-  * `threading`
-* No additional packages are required
 
 ---
 
