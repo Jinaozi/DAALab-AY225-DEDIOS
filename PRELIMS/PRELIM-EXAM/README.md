@@ -1,8 +1,8 @@
-# Sorting Algorithm Stress Test GUI
+# Sorting Algorithm Stress Test
 
 ## Overview
 
-The **Sorting Algorithm Stress Test GUI** is a Python-based benchmarking application that evaluates the performance of three classic sorting algorithms using structured CSV datasets. The CSV file contains the columns **ID**, **FirstName**, and **LastName**.
+The **Sorta Happemed** is a Python-based benchmarking application that evaluates the performance of three classic sorting algorithms using structured CSV datasets. The CSV file contains the columns **ID**, **FirstName**, and **LastName**.
 
 This project demonstrates the real-world performance difference between **O(n²)** algorithms (Bubble Sort and Insertion Sort) and the **O(n log n)** Merge Sort, reinforcing key concepts in algorithm analysis. The application provides a clean graphical interface for testing scalability and measuring execution time.
 
@@ -89,28 +89,6 @@ This project demonstrates the real-world performance difference between **O(n²)
 * No built-in sorting functions such as `.sort()` or `sorted()` are used
 * Bubble Sort and Insertion Sort may take a very long time for large datasets
 * The progress bar and cancel function help manage long executions
-
----
-
-## ⏱️ Time Benchmark Results (Total Execution Time)
-
-### 1,000 Rows
-
-* **Bubble Sort:** 0.4340 s
-* **Insertion Sort:** 0.4137 s
-* **Merge Sort:** 0.4421 s
-
-### 10,000 Rows
-
-* **Bubble Sort:** 9.1522 s
-* **Insertion Sort:** 6.5705 s
-* **Merge Sort:** 3.7654 s
-
-### 100,000 Rows
-
-* **Bubble Sort:** 434.1950 s
-* **Insertion Sort:** 444.1477 s
-* **Merge Sort:** 38.1100 s
 
 ---
 
