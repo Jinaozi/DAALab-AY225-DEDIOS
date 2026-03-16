@@ -8,120 +8,192 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0c10;
-    --surface: #10141c;
-    --panel: #141920;
-    --border: #1e2836;
-    --accent: #00e5ff;
-    --accent3: #7fff6b;
-    --gold: #ffd166;
-    --text: #c8d8e8;
-    --muted: #4a5f72;
-    --dist-color: #00e5ff;
-    --time-color: #ff6b35;
-    --fuel-color: #7fff6b;
+    --bg: #03091f;
+    --surface: #07102e;
+    --panel: #091238;
+    --panel2: #06102a;
+    --border: #1a2a5a;
+    --border2: #253570;
+    --accent: #fe3e8a;
+    --accent2: #fe0060;
+    --accent3: #fe6675;
+    --gold: #fe3e8a;
+    --purple: #853987;
+    --cobalt: #023583;
+    --text: #d8dff0;
+    --text2: #8899bb;
+    --muted: #4a5880;
+    --dist-color: #fe3e8a;
+    --time-color: #fe6675;
+    --fuel-color: #a78bfa;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; }
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background-image:
-      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
+      radial-gradient(ellipse at 15% 10%, rgba(254,62,138,0.04) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 85%, rgba(2,53,131,0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(1,19,64,0.5) 0%, transparent 80%),
+      linear-gradient(rgba(2,53,131,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(2,53,131,0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 52px 52px, 52px 52px;
+    pointer-events: none; z-index: 0;
   }
+  .app { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 28px 24px 60px; }
 
-  .app { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; padding: 32px 24px; }
+  /* ─── Header ─── */
+  header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border); gap: 20px; flex-wrap: wrap; }
+  .logo-block { display: flex; align-items: center; gap: 14px; }
+  .logo-icon { width: 44px; height: 44px; background: linear-gradient(135deg, rgba(254,62,138,0.22), rgba(254,0,96,0.08)); border: 1px solid rgba(254,62,138,0.4); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 0 16px rgba(254,62,138,0.15); }
+  .logo-text h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; line-height: 1; }
+  .logo-text h1 span { color: var(--accent); font-family: 'Share Tech Mono', monospace; }
+  .logo-text p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-top: 3px; }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .status-pill { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 40px; padding: 7px 14px; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); transition: all 0.3s; flex-shrink: 0; }
+  .status-dot.active { background: #fe6675; box-shadow: 0 0 8px #fe6675; }
+  .status-dot.warn { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .status-label { font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.12em; }
+  .stats-row { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .stat-chip { padding: 6px 14px; font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; color: var(--muted); border-right: 1px solid var(--border); background: var(--surface); white-space: nowrap; }
+  .stat-chip:last-child { border-right: none; }
+  .stat-chip span { color: var(--accent); margin-left: 4px; }
 
-  /* Header */
-  header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-  .logo-block h1 { font-size: 2rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; }
-  .logo-block h1 span { color: var(--accent); font-family: 'Share Tech Mono', monospace; }
-  .logo-block p { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-top: 4px; }
-  .status-bar { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--muted); text-align: right; line-height: 1.8; }
-  .status-bar .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); margin-right: 6px; vertical-align: middle; }
-  .status-bar .dot.active { background: var(--accent3); box-shadow: 0 0 6px var(--accent3); }
-
-  /* Upload */
-  .upload-zone { border: 1.5px dashed var(--border); border-radius: 4px; padding: 40px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--surface); position: relative; overflow: hidden; }
-  .upload-zone::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,229,255,0.04) 0%, transparent 60%); pointer-events: none; }
-  .upload-zone:hover, .upload-zone.drag-over { border-color: var(--accent); background: #0d1620; }
+  /* ─── Upload ─── */
+  .upload-zone { border: 1.5px dashed var(--border2); border-radius: 6px; padding: 36px 40px; text-align: center; cursor: pointer; transition: all 0.25s; background: var(--surface); position: relative; overflow: hidden; }
+  .upload-zone::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(2,53,131,0.08) 0%, transparent 60%); pointer-events: none; }
+  .upload-zone:hover, .upload-zone.drag-over { border-color: var(--accent); background: #080f28; box-shadow: 0 0 24px rgba(254,62,138,0.06) inset; }
+  .upload-zone.loaded { border-color: #fe6675; border-style: solid; }
   .upload-zone input { display: none; }
-  .upload-icon { width: 52px; height: 52px; margin: 0 auto 16px; border: 1.5px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
-  .upload-zone h3 { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
-  .upload-zone p { font-size: 0.8rem; color: var(--muted); }
-  .upload-zone .badge { display: inline-block; margin-top: 12px; padding: 3px 10px; font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; border: 1px solid var(--border); border-radius: 2px; color: var(--muted); letter-spacing: 0.15em; }
+  .upload-inner { position: relative; z-index: 1; }
+  .upload-icon { font-size: 2rem; margin-bottom: 10px; }
+  .upload-zone h3 { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .upload-zone p { font-size: 0.78rem; color: var(--muted); }
+  .upload-badges { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+  .badge { padding: 3px 10px; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; border: 1px solid var(--border2); border-radius: 2px; color: var(--muted); letter-spacing: 0.12em; }
 
-  /* Controls */
-  .controls { display: grid; grid-template-columns: 1fr auto; gap: 16px; margin-top: 24px; align-items: end; }
-  .field-group { display: flex; flex-direction: column; gap: 8px; }
-  label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); font-family: 'Share Tech Mono', monospace; }
-  select { background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 0.88rem; padding: 10px 14px; border-radius: 3px; outline: none; transition: border-color 0.2s; width: 100%; appearance: none; -webkit-appearance: none; }
+  /* ─── Controls ─── */
+  .controls-bar { display: flex; gap: 12px; margin-top: 20px; align-items: flex-end; flex-wrap: wrap; }
+  .field-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 160px; }
+  label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); font-family: 'Share Tech Mono', monospace; }
+  select { background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; padding: 9px 14px; border-radius: 4px; outline: none; transition: border-color 0.2s; width: 100%; appearance: none; -webkit-appearance: none; cursor: pointer; }
   select:focus { border-color: var(--accent); }
-  .btn { padding: 11px 28px; background: var(--accent); color: #000; border: none; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; border-radius: 3px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-  .btn:hover { background: #33ecff; transform: translateY(-1px); }
-  .btn:active { transform: translateY(0); }
-  .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+  .btn { padding: 10px 24px; border: none; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em; border-radius: 4px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .btn-primary { background: linear-gradient(135deg, #fe3e8a, #fe0060); color: #fff; box-shadow: 0 2px 16px rgba(254,0,96,0.3); }
+  .btn-primary:hover { background: linear-gradient(135deg, #ff5ea0, #fe2070); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(254,62,138,0.45); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: rgba(254,62,138,0.05); }
 
-  /* Section title */
-  .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); font-family: 'Share Tech Mono', monospace; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  /* ─── Section titles ─── */
+  .section-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted); font-family: 'Share Tech Mono', monospace; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .section-title .st-tag { padding: 2px 8px; border: 1px solid currentColor; border-radius: 2px; font-size: 0.6rem; opacity: 0.7; }
   .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* Data preview */
-  .data-preview { margin-top: 32px; }
-  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; font-family: 'Share Tech Mono', monospace; }
-  thead th { background: #0d1218; padding: 10px 16px; text-align: left; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
-  tbody tr { border-bottom: 1px solid rgba(30,40,54,0.7); }
+  /* ─── Two-column layout ─── */
+  .main-grid { display: grid; grid-template-columns: 340px 1fr; gap: 20px; margin-top: 28px; }
+  @media(max-width: 960px) { .main-grid { grid-template-columns: 1fr; } }
+
+  /* ─── Node/Edge Manager ─── */
+  .side-panel { display: flex; flex-direction: column; gap: 16px; }
+  .panel-box { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .panel-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); }
+  .panel-header-left { display: flex; align-items: center; gap: 8px; }
+  .panel-header-icon { font-size: 0.9rem; }
+  .panel-header-title { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text2); }
+  .panel-header-count { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--accent); background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.2); border-radius: 10px; padding: 1px 8px; }
+
+  /* Node list */
+  .node-list { padding: 8px; display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow-y: auto; }
+  .node-pill { display: flex; align-items: center; gap: 5px; padding: 4px 10px; background: rgba(2,53,131,0.18); border: 1px solid rgba(2,53,131,0.5); border-radius: 20px; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--text2); cursor: pointer; transition: all 0.15s; user-select: none; }
+  .node-pill:hover { background: rgba(2,53,131,0.32); border-color: rgba(254,62,138,0.4); color: var(--text); }
+  .node-pill.selected { background: linear-gradient(135deg, rgba(254,62,138,0.25), rgba(254,0,96,0.15)); color: var(--accent); border-color: rgba(254,62,138,0.6); }
+  .node-pill .node-degree { font-size: 0.6rem; opacity: 0.65; }
+
+  /* Adjacency / connection list */
+  .adj-list { max-height: 200px; overflow-y: auto; }
+  .adj-row { display: grid; grid-template-columns: 28px 1fr 1fr 1fr; gap: 0; border-bottom: 1px solid rgba(26,35,50,0.6); align-items: center; }
+  .adj-row:last-child { border-bottom: none; }
+  .adj-row:hover { background: rgba(255,255,255,0.02); }
+  .adj-cell { padding: 6px 10px; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; }
+  .adj-cell.idx { color: var(--muted); font-size: 0.6rem; }
+  .adj-cell.node-ref { color: var(--accent); }
+  .adj-header { background: rgba(0,0,0,0.3); }
+  .adj-header .adj-cell { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding: 5px 10px; }
+  .adj-val-dist { color: var(--dist-color); }
+  .adj-val-time { color: var(--time-color); }
+  .adj-val-fuel { color: var(--fuel-color); }
+
+  /* ─── Graph canvas area ─── */
+  .graph-area { display: flex; flex-direction: column; gap: 12px; }
+  .graph-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .metric-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .metric-tab { padding: 7px 18px; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: all 0.15s; color: var(--muted); background: var(--surface); border: none; border-right: 1px solid var(--border); }
+  .metric-tab:last-child { border-right: none; }
+  .metric-tab:hover { color: var(--text2); background: rgba(2,53,131,0.2); }
+  .metric-tab.active-dist { background: rgba(254,62,138,0.1); color: var(--dist-color); border-bottom: 2px solid var(--dist-color); }
+  .metric-tab.active-time { background: rgba(254,102,117,0.1); color: var(--time-color); border-bottom: 2px solid var(--time-color); }
+  .metric-tab.active-fuel { background: rgba(167,139,250,0.1); color: var(--fuel-color); border-bottom: 2px solid var(--fuel-color); }
+  .graph-legend { display: flex; gap: 12px; margin-left: auto; flex-wrap: wrap; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-family: 'Share Tech Mono', monospace; font-size: 0.63rem; color: var(--muted); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .legend-line { width: 18px; height: 2px; flex-shrink: 0; }
+
+  #graphCanvas { width: 100%; display: block; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); cursor: crosshair; }
+
+  /* Edge tooltip */
+  #edgeTooltip { position: fixed; display: none; background: #0a1220; border: 1px solid var(--border2); border-radius: 6px; padding: 10px 14px; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; pointer-events: none; z-index: 1000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  #edgeTooltip .tt-edge { font-size: 0.85rem; color: #fff; margin-bottom: 8px; font-weight: 700; }
+  #edgeTooltip .tt-row { display: flex; justify-content: space-between; gap: 20px; margin-top: 3px; }
+  #edgeTooltip .tt-label { color: var(--muted); }
+  #edgeTooltip .tt-val { font-weight: 700; }
+
+  /* ─── Data preview ─── */
+  .data-preview-wrap { margin-top: 24px; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; font-family: 'Share Tech Mono', monospace; }
+  thead th { background: rgba(0,0,0,0.3); padding: 9px 16px; text-align: left; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid rgba(26,35,50,0.6); transition: background 0.1s; }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(0,229,255,0.03); }
-  tbody td { padding: 9px 16px; color: var(--text); }
-  tbody td:first-child { color: var(--accent); }
+  tbody tr:hover { background: rgba(0,229,255,0.025); }
+  tbody td { padding: 8px 16px; }
+  tbody td:nth-child(1) { color: var(--muted); font-size: 0.65rem; }
+  tbody td:nth-child(2), tbody td:nth-child(3) { color: var(--accent); }
+  tbody td:nth-child(4) { color: var(--dist-color); }
+  tbody td:nth-child(5) { color: var(--time-color); }
+  tbody td:nth-child(6) { color: var(--fuel-color); }
+  .dir-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.6rem; padding: 1px 6px; border-radius: 2px; background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.15); color: var(--accent); margin-left: 6px; vertical-align: middle; }
 
-  /* Graph */
-  .graph-section { margin-top: 32px; }
-  #graphCanvas { width: 100%; height: 420px; display: block; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); }
+  /* ─── Results ─── */
+  .results-section { margin-top: 32px; }
+  .winner-banner { background: linear-gradient(135deg, rgba(2,53,131,0.25) 0%, rgba(254,62,138,0.06) 100%); border: 1px solid rgba(254,62,138,0.2); border-radius: 6px; padding: 18px 22px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+  .winner-crown { font-size: 2rem; flex-shrink: 0; }
+  .winner-info { flex: 1; min-width: 160px; }
+  .winner-label { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 4px; }
+  .winner-node { font-size: 1.6rem; font-weight: 700; color: var(--accent); font-family: 'Share Tech Mono', monospace; line-height: 1; }
+  .winner-desc { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+  .winner-scores { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ws-item { text-align: center; padding: 10px 14px; background: rgba(0,0,0,0.3); border-radius: 4px; border: 1px solid var(--border); min-width: 80px; }
+  .ws-label { font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 4px; }
+  .ws-val { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; font-weight: 700; }
+  .ws-item.d .ws-val { color: var(--dist-color); }
+  .ws-item.t .ws-val { color: var(--time-color); }
+  .ws-item.f .ws-val { color: var(--fuel-color); }
 
-  /* Winner banner */
-  .winner-banner { background: linear-gradient(135deg, rgba(255,209,102,0.08) 0%, rgba(255,209,102,0.02) 100%); border: 1px solid rgba(255,209,102,0.3); border-radius: 4px; padding: 20px 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
-  .winner-crown { font-size: 2.2rem; flex-shrink: 0; }
-  .winner-info { flex: 1; min-width: 180px; }
-  .winner-info .winner-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 4px; }
-  .winner-info .winner-node { font-size: 1.7rem; font-weight: 700; color: var(--gold); font-family: 'Share Tech Mono', monospace; }
-  .winner-info .winner-desc { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
-  .winner-scores { display: flex; gap: 14px; flex-wrap: wrap; }
-  .winner-score-item { text-align: center; padding: 10px 16px; background: rgba(0,0,0,0.25); border-radius: 3px; border: 1px solid var(--border); min-width: 90px; }
-  .winner-score-item .ws-label { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 5px; }
-  .winner-score-item .ws-val { font-family: 'Share Tech Mono', monospace; font-size: 0.88rem; font-weight: 700; }
-  .winner-score-item.dist .ws-val { color: var(--dist-color); }
-  .winner-score-item.time .ws-val { color: var(--time-color); }
-  .winner-score-item.fuel .ws-val { color: var(--fuel-color); }
-
-  /* Ranking table */
-  .ranking-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 28px; }
-  .ranking-table { width: 100%; border-collapse: collapse; font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; }
-  .ranking-table thead th { background: #0d1218; padding: 10px 14px; text-align: center; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); border-bottom: 1px solid var(--border); }
+  /* Ranking */
+  .ranking-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 24px; }
+  .ranking-table { width: 100%; border-collapse: collapse; font-family: 'Share Tech Mono', monospace; font-size: 0.76rem; }
+  .ranking-table thead th { background: rgba(0,0,0,0.3); padding: 9px 14px; text-align: center; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); border-bottom: 1px solid var(--border); }
   .ranking-table thead th:first-child { text-align: left; }
-  .ranking-table tbody tr { border-bottom: 1px solid rgba(30,40,54,0.5); transition: background 0.15s; }
+  .ranking-table tbody tr { border-bottom: 1px solid rgba(26,35,50,0.5); transition: background 0.12s; }
   .ranking-table tbody tr:last-child { border-bottom: none; }
   .ranking-table tbody tr:hover { background: rgba(255,255,255,0.02); }
-  .ranking-table tbody td { padding: 9px 14px; text-align: center; }
+  .ranking-table tbody td { padding: 8px 14px; text-align: center; }
   .ranking-table tbody td:first-child { text-align: left; color: #fff; }
-  .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 0.65rem; font-weight: 700; margin-right: 8px; }
+  .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-size: 0.62rem; font-weight: 700; margin-right: 8px; }
   .rank-badge.r1 { background: var(--gold); color: #000; }
   .rank-badge.r2 { background: #b0b8c8; color: #000; }
   .rank-badge.r3 { background: #cd7f32; color: #000; }
@@ -130,73 +202,76 @@
   .best-cell.dist { color: var(--dist-color); }
   .best-cell.time { color: var(--time-color); }
   .best-cell.fuel { color: var(--fuel-color); }
-  .best-cell.overall { color: var(--gold); }
-  .crown-tag { font-size: 0.75rem; margin-left: 4px; }
+  .best-cell.overall { color: var(--accent); }
 
   /* Results grid */
-  .results-section { margin-top: 32px; }
   .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .metric-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-  .metric-header { padding: 14px 18px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
-  .metric-icon { width: 32px; height: 32px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-  .metric-header .metric-name { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; font-family: 'Share Tech Mono', monospace; color: var(--muted); }
-  .metric-header .metric-label { font-size: 0.95rem; font-weight: 600; color: #fff; }
-  .metric-header .best-node-tag { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
-  .metric-header .best-node-tag .bnt-label { font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
-  .metric-header .best-node-tag .bnt-val { font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; font-weight: 700; }
-  .metric-panel.dist .metric-icon { background: rgba(0,229,255,0.1); color: var(--dist-color); }
-  .metric-panel.time .metric-icon { background: rgba(255,107,53,0.1); color: var(--time-color); }
-  .metric-panel.fuel .metric-icon { background: rgba(127,255,107,0.1); color: var(--fuel-color); }
+  @media(max-width: 900px) { .results-grid { grid-template-columns: 1fr; } }
+  .metric-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
   .metric-panel.dist { border-top: 2px solid var(--dist-color); }
   .metric-panel.time { border-top: 2px solid var(--time-color); }
   .metric-panel.fuel { border-top: 2px solid var(--fuel-color); }
+  .metric-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.2); }
+  .metric-icon { width: 30px; height: 30px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+  .metric-panel.dist .metric-icon { background: rgba(254,62,138,0.08); }
+  .metric-panel.time .metric-icon { background: rgba(254,102,117,0.08); }
+  .metric-panel.fuel .metric-icon { background: rgba(167,139,250,0.08); }
+  .mh-text .metric-name { font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+  .mh-text .metric-label { font-size: 0.9rem; font-weight: 600; color: #fff; }
+  .best-node-tag { margin-left: auto; text-align: right; }
+  .bnt-label { font-family: 'Share Tech Mono', monospace; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+  .bnt-val { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; font-weight: 700; }
   .metric-panel.dist .bnt-val { color: var(--dist-color); }
   .metric-panel.time .bnt-val { color: var(--time-color); }
   .metric-panel.fuel .bnt-val { color: var(--fuel-color); }
 
-  .route-list { padding: 14px 0; }
-  .route-item { padding: 10px 18px; border-bottom: 1px solid rgba(30,40,54,0.5); transition: background 0.15s; cursor: pointer; }
+  .route-list { padding: 8px 0; }
+  .route-item { padding: 9px 16px; border-bottom: 1px solid rgba(26,35,50,0.5); transition: background 0.12s; cursor: pointer; position: relative; }
   .route-item:last-child { border-bottom: none; }
-  .route-item:hover { background: rgba(255,255,255,0.04); outline: 1px solid rgba(255,255,255,0.06); }
-  .route-dest { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-  .route-dest .dest-name { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: #fff; font-family: 'Share Tech Mono', monospace; }
-  .route-dest .dest-value { font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; font-weight: 600; }
+  .route-item:hover { background: rgba(255,255,255,0.03); }
+  .route-item.hovered::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .metric-panel.dist .route-item.hovered::before { background: var(--dist-color); }
+  .metric-panel.time .route-item.hovered::before { background: var(--time-color); }
+  .metric-panel.fuel .route-item.hovered::before { background: var(--fuel-color); }
+  .route-dest { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+  .dest-name { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; font-family: 'Share Tech Mono', monospace; }
+  .dest-value { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; font-weight: 700; }
   .metric-panel.dist .dest-value { color: var(--dist-color); }
   .metric-panel.time .dest-value { color: var(--time-color); }
   .metric-panel.fuel .dest-value { color: var(--fuel-color); }
-  .route-path { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--muted); display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
-  .route-path .node-chip { padding: 2px 7px; border-radius: 2px; font-size: 0.68rem; }
-  .metric-panel.dist .node-chip { background: rgba(0,229,255,0.1); color: var(--dist-color); }
-  .metric-panel.time .node-chip { background: rgba(255,107,53,0.1); color: var(--time-color); }
-  .metric-panel.fuel .node-chip { background: rgba(127,255,107,0.1); color: var(--fuel-color); }
-  .route-path .arrow { color: var(--muted); font-size: 0.65rem; }
-  .no-data { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 0.8rem; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em; }
+  .route-path { font-family: 'Share Tech Mono', monospace; font-size: 0.66rem; color: var(--muted); display: flex; align-items: center; flex-wrap: wrap; gap: 3px; }
+  .node-chip { padding: 1px 6px; border-radius: 2px; font-size: 0.64rem; }
+  .metric-panel.dist .node-chip { background: rgba(254,62,138,0.1); color: #fe6e9e; }
+  .metric-panel.time .node-chip { background: rgba(254,102,117,0.1); color: #fe8a96; }
+  .metric-panel.fuel .node-chip { background: rgba(167,139,250,0.1); color: var(--fuel-color); }
+  .arrow { color: var(--muted); font-size: 0.6rem; }
+  .no-data { text-align: center; padding: 32px 16px; color: var(--muted); font-size: 0.75rem; font-family: 'Share Tech Mono', monospace; }
 
-  .alt-toggle { margin-top: 6px; font-size: 0.65rem; font-family: 'Share Tech Mono', monospace; color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; text-decoration: underline; text-underline-offset: 3px; }
-  .alt-paths { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .alt-toggle { margin-top: 5px; font-size: 0.62rem; font-family: 'Share Tech Mono', monospace; color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; text-underline-offset: 3px; }
+  .alt-paths { display: none; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); }
   .alt-paths.open { display: block; }
-  .alt-path-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 0; font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; color: var(--muted); }
+  .alt-path-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--muted); }
 
-  /* Total footer */
-  .metric-total { border-top: 1px solid var(--border); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); }
-  .metric-total .total-label { font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-  .metric-total .total-label::before { content: 'Σ'; font-size: 0.85rem; }
-  .metric-total .total-value { font-family: 'Share Tech Mono', monospace; font-size: 1rem; font-weight: 700; }
-  .metric-total .total-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; color: var(--muted); text-align: right; margin-top: 2px; }
-  .metric-total .total-right { text-align: right; }
-  .metric-panel.dist .metric-total .total-value { color: var(--dist-color); }
-  .metric-panel.time .metric-total .total-value { color: var(--time-color); }
-  .metric-panel.fuel .metric-total .total-value { color: var(--fuel-color); }
+  .metric-total { border-top: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); }
+  .total-label { font-family: 'Share Tech Mono', monospace; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .total-label::before { content: 'Σ'; font-size: 0.8rem; }
+  .total-value { font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; font-weight: 700; }
+  .total-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; color: var(--muted); text-align: right; margin-top: 1px; }
+  .metric-panel.dist .total-value { color: var(--dist-color); }
+  .metric-panel.time .total-value { color: var(--time-color); }
+  .metric-panel.fuel .total-value { color: var(--fuel-color); }
 
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-  @media (max-width: 900px) { .results-grid { grid-template-columns: 1fr; } .controls { grid-template-columns: 1fr; } }
-  @media (max-width: 600px) { header { flex-direction: column; align-items: flex-start; gap: 12px; } }
+  .fade-in { animation: fadeIn 0.35s ease forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-  .fade-in { animation: fadeIn 0.4s ease forwards; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 40px 20px; color: var(--muted); font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; text-align: center; letter-spacing: 0.08em; line-height: 1.8; }
+  .empty-icon { font-size: 2rem; opacity: 0.4; }
 </style>
 </head>
 <body>
@@ -204,65 +279,198 @@
 
   <header>
     <div class="logo-block">
-      <h1>Path<span>Panda</span></h1>
-      <p>Multi-Criteria Shortest Path Analyzer</p>
+      <div class="logo-icon">🐼</div>
+      <div class="logo-text">
+        <h1>Path<span>Panda</span></h1>
+        <p>Multi-Criteria Shortest Path Analyzer</p>
+      </div>
     </div>
-    <div class="status-bar">
-      <div><span class="dot" id="statusDot"></span><span id="statusText">AWAITING INPUT</span></div>
-      <div id="nodeCountStatus">NODES: —</div>
-      <div id="edgeCountStatus">EDGES: —</div>
+    <div class="header-right">
+      <div class="stats-row">
+        <div class="stat-chip">NODES<span id="nodeCount">—</span></div>
+        <div class="stat-chip">EDGES<span id="edgeCount">—</span></div>
+        <div class="stat-chip">CONNECTIONS<span id="connCount">—</span></div>
+      </div>
+      <div class="status-pill">
+        <div class="status-dot" id="statusDot"></div>
+        <div class="status-label" id="statusText">AWAITING INPUT</div>
+      </div>
     </div>
   </header>
 
+  <!-- Upload -->
   <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
     <input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
-    <div class="upload-icon">📂</div>
-    <h3>Drop Excel File Here</h3>
-    <p>or click to browse your files</p>
-    <span class="badge">XLSX · XLS · CSV</span>
+    <div class="upload-inner">
+      <div class="upload-icon">📂</div>
+      <h3>Drop Excel / CSV File Here</h3>
+      <p>Columns: From · To · Distance · Time · Fuel</p>
+      <div class="upload-badges">
+        <span class="badge">XLSX</span>
+        <span class="badge">XLS</span>
+        <span class="badge">CSV</span>
+      </div>
+    </div>
   </div>
 
-  <div class="controls">
+  <div class="controls-bar">
     <div class="field-group">
-      <label>Graph Display Metric</label>
+      <label>Display Metric</label>
       <select id="displayMetric">
-        <option value="distance">Distance</option>
-        <option value="time">Time</option>
-        <option value="fuel">Fuel</option>
+        <option value="distance">📏 Distance (km)</option>
+        <option value="time">⚡ Time (min)</option>
+        <option value="fuel">⛽ Fuel (L)</option>
       </select>
     </div>
-    <button class="btn" id="analyzeBtn" disabled onclick="runAnalysis()">Auto-Analyze All Nodes</button>
+    <div class="field-group" style="max-width:160px">
+      <label>Layout Style</label>
+      <select id="layoutStyle">
+        <option value="circle">Circular</option>
+        <option value="force">Force-Directed</option>
+        <option value="grid">Grid</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" id="analyzeBtn" disabled onclick="runAnalysis()">▶ Analyze All Nodes</button>
+    <button class="btn btn-ghost" id="resetBtn" onclick="resetView()" style="display:none">↺ Reset</button>
   </div>
 
-  <div class="data-preview" id="dataPreview" style="display:none">
-    <div class="section-title">Loaded Edge Data</div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>#</th><th>From</th><th>To</th><th>Distance</th><th>Time</th><th>Fuel</th></tr></thead>
-        <tbody id="edgeTableBody"></tbody>
-      </table>
+  <!-- Main grid: sidebar + graph -->
+  <div class="main-grid" id="mainGrid" style="display:none">
+
+    <!-- Left panel -->
+    <div class="side-panel">
+
+      <!-- Node list -->
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <span class="panel-header-icon">○</span>
+            <span class="panel-header-title">Nodes</span>
+          </div>
+          <span class="panel-header-count" id="nodeListCount">0</span>
+        </div>
+        <div class="node-list" id="nodeList">
+          <div class="empty-state"><span class="empty-icon">○</span>No nodes loaded</div>
+        </div>
+      </div>
+
+      <!-- Adjacency list -->
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <span class="panel-header-icon">⇄</span>
+            <span class="panel-header-title">Connections</span>
+          </div>
+          <span class="panel-header-count" id="adjListCount">0</span>
+        </div>
+        <div class="adj-list" id="adjList">
+          <div class="empty-state" style="padding:20px"><span class="empty-icon">⇄</span>Select a node to view its connections</div>
+        </div>
+      </div>
+
+      <!-- Attribute legend -->
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <span class="panel-header-icon">📊</span>
+            <span class="panel-header-title">Attribute Legend</span>
+          </div>
+        </div>
+        <div style="padding:14px 16px; display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:28px; height:3px; background:var(--dist-color); border-radius:2px; flex-shrink:0;"></div>
+            <div>
+              <div style="font-family:'Share Tech Mono',monospace; font-size:0.68rem; color:var(--dist-color); letter-spacing:0.1em;">DISTANCE (km)</div>
+              <div style="font-size:0.72rem; color:var(--muted); margin-top:1px;">Physical distance between nodes</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:28px; height:3px; background:var(--time-color); border-radius:2px; flex-shrink:0;"></div>
+            <div>
+              <div style="font-family:'Share Tech Mono',monospace; font-size:0.68rem; color:var(--time-color); letter-spacing:0.1em;">TIME (min)</div>
+              <div style="font-size:0.72rem; color:var(--muted); margin-top:1px;">Travel time between nodes</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:28px; height:3px; background:var(--fuel-color); border-radius:2px; flex-shrink:0;"></div>
+            <div>
+              <div style="font-family:'Share Tech Mono',monospace; font-size:0.68rem; color:var(--fuel-color); letter-spacing:0.1em;">FUEL (L)</div>
+              <div style="font-size:0.72rem; color:var(--muted); margin-top:1px;">Fuel consumption between nodes</div>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--border); padding-top:10px; margin-top:2px;">
+            <div style="font-family:'Share Tech Mono',monospace; font-size:0.62rem; color:var(--muted); letter-spacing:0.1em; margin-bottom:6px;">GRAPH SYMBOLS</div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color:var(--muted);">
+                <div style="width:16px; height:16px; border-radius:50%; background:linear-gradient(135deg,#fe3e8a,#fe0060); flex-shrink:0; box-shadow:0 0 8px rgba(254,62,138,0.5);"></div>
+                Best starting node (analysis result)
+              </div>
+              <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color:var(--muted);">
+                <div style="width:16px; height:16px; border-radius:50%; background:rgba(254,62,138,0.15); border:2px solid var(--accent); flex-shrink:0;"></div>
+                Node on optimal path
+              </div>
+              <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color:var(--muted);">
+                <div style="width:16px; height:16px; border-radius:50%; background:rgba(254,62,138,0.3); border:2px solid var(--accent); flex-shrink:0;"></div>
+                Selected / focused node
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graph area -->
+    <div class="graph-area">
+      <div class="graph-toolbar">
+        <div class="metric-tabs" id="metricTabs">
+          <button class="metric-tab active-dist" onclick="switchMetricTab('distance',this)">📏 Distance</button>
+          <button class="metric-tab" onclick="switchMetricTab('time',this)">⚡ Time</button>
+          <button class="metric-tab" onclick="switchMetricTab('fuel',this)">⛽ Fuel</button>
+        </div>
+        <div class="graph-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Best Start</div>
+          <div class="legend-item"><div class="legend-line" style="background:var(--accent)aa"></div>Optimal Path</div>
+          <div class="legend-item"><div class="legend-line" style="background:var(--border2)"></div>Other Edge</div>
+        </div>
+      </div>
+      <canvas id="graphCanvas"></canvas>
+
+      <!-- Data preview inside graph area -->
+      <div class="data-preview-wrap" id="dataPreview" style="display:none">
+        <div class="section-title"><span class="st-tag">TABLE</span>Raw Edge Data</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>From</th><th>To</th>
+                <th style="color:var(--dist-color)">Distance (km)</th>
+                <th style="color:var(--time-color)">Time (min)</th>
+                <th style="color:var(--fuel-color)">Fuel (L)</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="edgeTableBody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="graph-section" id="graphSection" style="display:none">
-    <div class="section-title">Network Graph</div>
-    <canvas id="graphCanvas"></canvas>
-  </div>
-
+  <!-- Results -->
   <div class="results-section" id="resultsSection" style="display:none">
 
-    <div class="section-title">Best Starting Node Analysis</div>
+    <div class="section-title" style="margin-top:32px"><span class="st-tag">ANALYSIS</span>Best Starting Node</div>
     <div class="winner-banner">
       <div class="winner-crown">🏆</div>
       <div class="winner-info">
-        <div class="winner-label">Best Overall Starting Node</div>
+        <div class="winner-label">Optimal Starting Node (Overall)</div>
         <div class="winner-node" id="winnerNode">—</div>
         <div class="winner-desc" id="winnerDesc"></div>
       </div>
       <div class="winner-scores" id="winnerScores"></div>
     </div>
 
-    <div class="section-title">All Node Rankings</div>
+    <div class="section-title"><span class="st-tag">RANKING</span>All Node Rankings</div>
     <div class="ranking-table-wrap">
       <table class="ranking-table">
         <thead>
@@ -271,93 +479,80 @@
             <th style="color:var(--dist-color)">Total Distance</th>
             <th style="color:var(--time-color)">Total Time</th>
             <th style="color:var(--fuel-color)">Total Fuel</th>
-            <th style="color:var(--gold)">Overall Score</th>
+            <th style="color:var(--accent)">Overall Score</th>
           </tr>
         </thead>
         <tbody id="rankingBody"></tbody>
       </table>
     </div>
 
-    <div class="section-title">Optimal Routes per Metric</div>
+    <div class="section-title"><span class="st-tag">ROUTES</span>Optimal Routes per Metric</div>
     <div class="results-grid">
-
       <div class="metric-panel dist fade-in">
         <div class="metric-header">
           <div class="metric-icon">📏</div>
-          <div>
-            <div class="metric-name">Best start for</div>
-            <div class="metric-label">Shortest Distance</div>
-          </div>
-          <div class="best-node-tag">
-            <div class="bnt-label">Start Node</div>
-            <div class="bnt-val" id="distBestNode">—</div>
-          </div>
+          <div class="mh-text"><div class="metric-name">Best start for</div><div class="metric-label">Shortest Distance</div></div>
+          <div class="best-node-tag"><div class="bnt-label">Start Node</div><div class="bnt-val" id="distBestNode">—</div></div>
         </div>
         <div class="route-list" id="distRoutes"></div>
         <div class="metric-total" id="distTotal" style="display:none">
           <div class="total-label">Total Distance</div>
-          <div class="total-right">
-            <div class="total-value" id="distTotalVal">—</div>
-            <div class="total-sub" id="distTotalSub"></div>
-          </div>
+          <div style="text-align:right"><div class="total-value" id="distTotalVal">—</div><div class="total-sub" id="distTotalSub"></div></div>
         </div>
       </div>
-
-      <div class="metric-panel time fade-in" style="animation-delay:0.1s">
+      <div class="metric-panel time fade-in" style="animation-delay:0.08s">
         <div class="metric-header">
           <div class="metric-icon">⚡</div>
-          <div>
-            <div class="metric-name">Best start for</div>
-            <div class="metric-label">Fastest Route</div>
-          </div>
-          <div class="best-node-tag">
-            <div class="bnt-label">Start Node</div>
-            <div class="bnt-val" id="timeBestNode">—</div>
-          </div>
+          <div class="mh-text"><div class="metric-name">Best start for</div><div class="metric-label">Fastest Route</div></div>
+          <div class="best-node-tag"><div class="bnt-label">Start Node</div><div class="bnt-val" id="timeBestNode">—</div></div>
         </div>
         <div class="route-list" id="timeRoutes"></div>
         <div class="metric-total" id="timeTotal" style="display:none">
           <div class="total-label">Total Time</div>
-          <div class="total-right">
-            <div class="total-value" id="timeTotalVal">—</div>
-            <div class="total-sub" id="timeTotalSub"></div>
-          </div>
+          <div style="text-align:right"><div class="total-value" id="timeTotalVal">—</div><div class="total-sub" id="timeTotalSub"></div></div>
         </div>
       </div>
-
-      <div class="metric-panel fuel fade-in" style="animation-delay:0.2s">
+      <div class="metric-panel fuel fade-in" style="animation-delay:0.16s">
         <div class="metric-header">
           <div class="metric-icon">⛽</div>
-          <div>
-            <div class="metric-name">Best start for</div>
-            <div class="metric-label">Lowest Fuel</div>
-          </div>
-          <div class="best-node-tag">
-            <div class="bnt-label">Start Node</div>
-            <div class="bnt-val" id="fuelBestNode">—</div>
-          </div>
+          <div class="mh-text"><div class="metric-name">Best start for</div><div class="metric-label">Lowest Fuel</div></div>
+          <div class="best-node-tag"><div class="bnt-label">Start Node</div><div class="bnt-val" id="fuelBestNode">—</div></div>
         </div>
         <div class="route-list" id="fuelRoutes"></div>
         <div class="metric-total" id="fuelTotal" style="display:none">
           <div class="total-label">Total Fuel</div>
-          <div class="total-right">
-            <div class="total-value" id="fuelTotalVal">—</div>
-            <div class="total-sub" id="fuelTotalSub"></div>
-          </div>
+          <div style="text-align:right"><div class="total-value" id="fuelTotalVal">—</div><div class="total-sub" id="fuelTotalSub"></div></div>
         </div>
       </div>
-
     </div>
   </div>
 
 </div>
-<script>
-let edges = [], nodes = new Set();
-let highlightNodes = {};
-let graphPathData = {};   // { distance: {startNode, paths}, time: {...}, fuel: {...} }
-let hoveredDest = null;   // node id currently hovered in route list
 
-// ── Upload ──
+<!-- Edge tooltip -->
+<div id="edgeTooltip">
+  <div class="tt-edge" id="ttEdge"></div>
+  <div class="tt-row"><span class="tt-label">📏 Distance</span><span class="tt-val" id="ttDist" style="color:var(--dist-color)"></span></div>
+  <div class="tt-row"><span class="tt-label">⚡ Time</span><span class="tt-val" id="ttTime" style="color:var(--time-color)"></span></div>
+  <div class="tt-row"><span class="tt-label">⛽ Fuel</span><span class="tt-val" id="ttFuel" style="color:var(--fuel-color)"></span></div>
+</div>
+
+<script>
+// ──────────────────────────────────────────────
+//  State
+// ──────────────────────────────────────────────
+let edges = [], nodes = new Set();
+let adjacency = {};       // adjacency list: node → [{to, distance, time, fuel}]
+let nodePositions = {};   // computed layout positions
+let graphPathData = {};
+let hoveredDest = null;
+let selectedNode = null;
+let currentMetric = 'distance';
+let animFrame = null;
+
+// ──────────────────────────────────────────────
+//  Upload & Parse
+// ──────────────────────────────────────────────
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -378,7 +573,7 @@ function processFile(file) {
 
 function parseData(rows) {
   const start = (rows[0] && isNaN(Number(rows[0][0]))) ? 1 : 0;
-  edges = []; nodes = new Set();
+  edges = []; nodes = new Set(); adjacency = {};
   for (let i = start; i < rows.length; i++) {
     const row = rows[i];
     if (!row || row.length < 5) continue;
@@ -389,160 +584,275 @@ function parseData(rows) {
     nodes.add(from); nodes.add(to);
   }
   if (!edges.length) { alert('No valid data. Expected columns: From, To, Distance, Time, Fuel'); return; }
+
+  // 1. Build adjacency list
+  buildAdjacencyList();
+
+  // 2. Update UI
   updateUI();
 }
 
+// ──────────────────────────────────────────────
+//  Step 1 + 2: Node array + Adjacency list
+// ──────────────────────────────────────────────
+function buildAdjacencyList() {
+  adjacency = {};
+  [...nodes].forEach(n => adjacency[n] = []);
+  edges.forEach(e => {
+    adjacency[e.from].push({ to: e.to,   distance: e.distance, time: e.time, fuel: e.fuel });
+    adjacency[e.to].push(  { to: e.from, distance: e.distance, time: e.time, fuel: e.fuel });
+  });
+}
+
 function updateUI() {
+  const nodeArr = [...nodes].sort();
   document.getElementById('statusDot').classList.add('active');
   document.getElementById('statusText').textContent = 'DATA LOADED';
-  document.getElementById('nodeCountStatus').textContent = `NODES: ${nodes.size}`;
-  document.getElementById('edgeCountStatus').textContent = `EDGES: ${edges.length}`;
-  dropZone.querySelector('h3').textContent = '✓ File Loaded Successfully';
-  dropZone.style.borderColor = 'var(--accent3)'; dropZone.style.borderStyle = 'solid';
-  document.getElementById('analyzeBtn').disabled = false;
+  document.getElementById('nodeCount').textContent = nodes.size;
+  document.getElementById('edgeCount').textContent = edges.length;
+  // Count unique directed connections
+  const totalConns = Object.values(adjacency).reduce((s, arr) => s + arr.length, 0);
+  document.getElementById('connCount').textContent = totalConns;
 
+  dropZone.querySelector('h3').textContent = '✓ File Loaded Successfully';
+  dropZone.classList.add('loaded');
+  document.getElementById('analyzeBtn').disabled = false;
+  document.getElementById('resetBtn').style.display = '';
+
+  // Populate node list
+  const nodeListEl = document.getElementById('nodeList');
+  nodeListEl.innerHTML = '';
+  document.getElementById('nodeListCount').textContent = nodeArr.length;
+  nodeArr.forEach(n => {
+    const degree = adjacency[n] ? adjacency[n].length : 0;
+    const pill = document.createElement('div');
+    pill.className = 'node-pill';
+    pill.dataset.node = n;
+    pill.innerHTML = `<span>${n}</span><span class="node-degree">(${degree})</span>`;
+    pill.addEventListener('click', () => selectNode(n));
+    nodeListEl.appendChild(pill);
+  });
+
+  // Edge table
   const tbody = document.getElementById('edgeTableBody');
   tbody.innerHTML = '';
   edges.forEach((e, i) => {
+    const revExists = edges.some(x => x.from === e.to && x.to === e.from);
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${i+1}</td><td>${e.from}</td><td>${e.to}</td><td>${e.distance}</td><td>${e.time}</td><td>${e.fuel}</td>`;
+    tr.innerHTML = `
+      <td>${i+1}</td>
+      <td>${e.from}</td>
+      <td>${e.to}</td>
+      <td>${e.distance}</td>
+      <td>${e.time}</td>
+      <td>${e.fuel}</td>
+      <td><span class="dir-badge">${revExists ? '⇄ bi' : '→ uni'}</span></td>`;
     tbody.appendChild(tr);
   });
+
+  document.getElementById('mainGrid').style.display = 'grid';
   document.getElementById('dataPreview').style.display = 'block';
-  document.getElementById('graphSection').style.display = 'block';
-  document.getElementById('displayMetric').onchange = drawGraph;
+
+  // 3. Compute layout & draw
+  computeLayout(document.getElementById('layoutStyle').value);
+  document.getElementById('displayMetric').onchange = () => { currentMetric = document.getElementById('displayMetric').value; drawGraph(); };
+  document.getElementById('layoutStyle').onchange = () => { computeLayout(document.getElementById('layoutStyle').value); };
   drawGraph();
 }
 
+// ──────────────────────────────────────────────
+//  Step 3: Visual Representation — Layout Engine
+// ──────────────────────────────────────────────
+function computeLayout(style) {
+  const canvas = document.getElementById('graphCanvas');
+  const W = canvas.parentElement.clientWidth || 700;
+  const H = getCanvasHeight();
+  const nodeArr = [...nodes].sort();
+  nodePositions = {};
 
-// ── Graph ──
+  if (style === 'circle') {
+    const cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.42;
+    nodeArr.forEach((n, i) => {
+      const angle = (2 * Math.PI * i / nodeArr.length) - Math.PI / 2;
+      nodePositions[n] = { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+    });
+  } else if (style === 'grid') {
+    const cols = Math.ceil(Math.sqrt(nodeArr.length));
+    const rows = Math.ceil(nodeArr.length / cols);
+    const cellW = W / (cols + 1), cellH = H / (rows + 1);
+    nodeArr.forEach((n, i) => {
+      const col = i % cols, row = Math.floor(i / cols);
+      nodePositions[n] = { x: cellW * (col + 1), y: cellH * (row + 1) };
+    });
+  } else {
+    // Force-directed (simple spring)
+    const cx = W / 2, cy = H / 2;
+    nodeArr.forEach((n, i) => {
+      const angle = (2 * Math.PI * i / nodeArr.length) - Math.PI / 2;
+      const r = Math.min(W, H) * 0.3;
+      nodePositions[n] = { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+    });
+    for (let iter = 0; iter < 120; iter++) {
+      const forces = {};
+      nodeArr.forEach(n => forces[n] = { x: 0, y: 0 });
+      // Repulsion
+      for (let a = 0; a < nodeArr.length; a++) {
+        for (let b = a + 1; b < nodeArr.length; b++) {
+          const pa = nodePositions[nodeArr[a]], pb = nodePositions[nodeArr[b]];
+          const dx = pa.x - pb.x, dy = pa.y - pb.y;
+          const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+          const repulse = 8000 / (dist * dist);
+          forces[nodeArr[a]].x += repulse * dx / dist;
+          forces[nodeArr[a]].y += repulse * dy / dist;
+          forces[nodeArr[b]].x -= repulse * dx / dist;
+          forces[nodeArr[b]].y -= repulse * dy / dist;
+        }
+      }
+      // Attraction (edges)
+      edges.forEach(e => {
+        const pa = nodePositions[e.from], pb = nodePositions[e.to];
+        if (!pa || !pb) return;
+        const dx = pb.x - pa.x, dy = pb.y - pa.y;
+        const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        const ideal = 120;
+        const attract = (dist - ideal) * 0.05;
+        forces[e.from].x += attract * dx / dist;
+        forces[e.from].y += attract * dy / dist;
+        forces[e.to].x -= attract * dx / dist;
+        forces[e.to].y -= attract * dy / dist;
+      });
+      // Apply with cooling
+      const cool = Math.max(0.05, 1 - iter / 120);
+      nodeArr.forEach(n => {
+        nodePositions[n].x = Math.max(40, Math.min(W-40, nodePositions[n].x + forces[n].x * cool * 0.1));
+        nodePositions[n].y = Math.max(40, Math.min(H-40, nodePositions[n].y + forces[n].y * cool * 0.1));
+      });
+    }
+  }
+  drawGraph();
+}
+
+function getCanvasHeight() {
+  const n = nodes.size;
+  return Math.min(580, Math.max(420, n * 34 + 200));
+}
+
+// ──────────────────────────────────────────────
+//  Step 3 + 4: Graph Drawing with attributes
+// ──────────────────────────────────────────────
 function drawGraph() {
   const canvas = document.getElementById('graphCanvas');
   const dpr = window.devicePixelRatio || 1;
-  const W = canvas.parentElement.clientWidth, H = 420;
+  const W = canvas.parentElement.clientWidth || 700;
+  const H = getCanvasHeight();
   canvas.width = W * dpr; canvas.height = H * dpr;
   canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
 
-  const metric = document.getElementById('displayMetric').value;
   const colorMap = { distance: '#00e5ff', time: '#ff6b35', fuel: '#7fff6b' };
-  const color = colorMap[metric];
+  const color = colorMap[currentMetric];
 
-  // Grab path data for current metric
-  const pathInfo = graphPathData[metric]; // { startNode, paths }
+  // Build active-path sets
+  const pathInfo = graphPathData[currentMetric];
   const startNode = pathInfo ? pathInfo.startNode : null;
-  const paths     = pathInfo ? pathInfo.paths : {};
+  const paths = pathInfo ? pathInfo.paths : {};
 
-  // Build set of active path edges: key = "A|B" in direction A→B
-  // and a set of all nodes involved in paths
-  const activeEdges = new Set(); // directed "A|B"
-  const activeNodes = new Set();
-  const focusedEdges = new Set(); // only the hovered path
-  const focusedNodes = new Set();
-
+  const activeEdges = new Set(), activeNodes = new Set();
+  const focusedEdges = new Set(), focusedNodes = new Set();
   if (startNode) activeNodes.add(startNode);
 
   Object.entries(paths).forEach(([dest, { path }]) => {
     if (!path || path.length <= 1) return;
     const isFocused = hoveredDest === dest;
     for (let i = 0; i < path.length - 1; i++) {
-      const key = path[i] + '|' + path[i+1];
-      activeEdges.add(key);
-      activeNodes.add(path[i]);
-      activeNodes.add(path[i+1]);
-      if (isFocused) { focusedEdges.add(key); focusedNodes.add(path[i]); focusedNodes.add(path[i+1]); }
+      activeEdges.add(path[i] + '|' + path[i+1]);
+      activeNodes.add(path[i]); activeNodes.add(path[i+1]);
+      if (isFocused) { focusedEdges.add(path[i]+'|'+path[i+1]); focusedNodes.add(path[i]); focusedNodes.add(path[i+1]); }
     }
   });
 
   const hasFocus = hoveredDest !== null;
-
-  // Layout
-  const nodeArr = [...nodes].sort();
-  const cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.38;
-  const pos = {};
-  nodeArr.forEach((n, i) => {
-    const angle = (2 * Math.PI * i / nodeArr.length) - Math.PI / 2;
-    pos[n] = { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
-  });
-
   ctx.clearRect(0, 0, W, H);
 
-  // ── Helper: arrowhead ──
-  function drawArrow(ctx, x1, y1, x2, y2, nodeRadius) {
-    const dx = x2 - x1, dy = y2 - y1;
-    const len = Math.sqrt(dx*dx + dy*dy);
+  // ── Arrow helper ──
+  function drawArrow(x1, y1, x2, y2) {
+    const dx = x2-x1, dy = y2-y1, len = Math.sqrt(dx*dx+dy*dy);
     if (len < 1) return;
     const ux = dx/len, uy = dy/len;
-    // Place arrow at 60% along the segment (avoids overlapping node)
-    const tx = x1 + dx * 0.62, ty = y1 + dy * 0.62;
-    const aLen = 9, aWid = 5;
+    const tx = x1 + dx*0.58, ty = y1 + dy*0.58;
+    const aL = 8, aW = 4;
     ctx.beginPath();
-    ctx.moveTo(tx + ux * aLen, ty + uy * aLen);
-    ctx.lineTo(tx - ux * aLen - uy * aWid, ty - uy * aLen + ux * aWid);
-    ctx.lineTo(tx - ux * aLen + uy * aWid, ty - uy * aLen - ux * aWid);
-    ctx.closePath();
-    ctx.fill();
+    ctx.moveTo(tx + ux*aL, ty + uy*aL);
+    ctx.lineTo(tx - ux*aL - uy*aW, ty - uy*aL + ux*aW);
+    ctx.lineTo(tx - ux*aL + uy*aW, ty - uy*aL - ux*aW);
+    ctx.closePath(); ctx.fill();
   }
 
-  // ── 1. Ghost edges (background) ──
+  // ── 1. Ghost edges ──
   edges.forEach(e => {
-    const p1 = pos[e.from], p2 = pos[e.to];
+    const p1 = nodePositions[e.from], p2 = nodePositions[e.to];
     if (!p1 || !p2) return;
-    const edgeKey1 = e.from + '|' + e.to, edgeKey2 = e.to + '|' + e.from;
-    const isActive = activeEdges.has(edgeKey1) || activeEdges.has(edgeKey2);
-    if (!isActive) {
+    const k1 = e.from+'|'+e.to, k2 = e.to+'|'+e.from;
+    if (!activeEdges.has(k1) && !activeEdges.has(k2)) {
       ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
-      ctx.strokeStyle = '#1e2836'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.strokeStyle = '#1a2a5a'; ctx.lineWidth = 1; ctx.stroke();
+      // Ghost arrowhead
+      ctx.fillStyle = '#1a2a5a';
+      drawArrow(p1.x, p1.y, p2.x, p2.y);
     }
   });
 
-  // ── 2. Active path edges ──
-  // Collect directed edges from paths
-  const drawnEdgePairs = new Set();
-
+  // ── 2. Active path edges with attribute labels ──
+  const drawnLabels = new Set();
   Object.entries(paths).forEach(([dest, { path }]) => {
     if (!path || path.length <= 1) return;
     const isFocused = hoveredDest === dest;
     const dimmed = hasFocus && !isFocused;
+    const alpha = dimmed ? 0.12 : (isFocused ? 1.0 : 0.5);
+    const lw = dimmed ? 1 : (isFocused ? 3 : 2);
 
     for (let i = 0; i < path.length - 1; i++) {
       const a = path[i], b = path[i+1];
-      const p1 = pos[a], p2 = pos[b];
+      const p1 = nodePositions[a], p2 = nodePositions[b];
       if (!p1 || !p2) continue;
+      const alphaHex = Math.round(alpha*255).toString(16).padStart(2,'0');
 
-      const alpha = dimmed ? 0.15 : (isFocused ? 1.0 : 0.55);
-      const lw    = dimmed ? 1 : (isFocused ? 3 : 1.8);
-
+      // Line
       ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
-      ctx.strokeStyle = color + Math.round(alpha * 255).toString(16).padStart(2,'0');
-      ctx.lineWidth = lw;
-      ctx.stroke();
+      ctx.strokeStyle = color + alphaHex; ctx.lineWidth = lw; ctx.stroke();
 
-      // Arrowhead
-      ctx.fillStyle = color + Math.round(alpha * 255).toString(16).padStart(2,'0');
-      drawArrow(ctx, p1.x, p1.y, p2.x, p2.y, 11);
+      // Arrow
+      ctx.fillStyle = color + alphaHex;
+      drawArrow(p1.x, p1.y, p2.x, p2.y);
 
-      // Edge weight label (only on active, not dimmed)
+      // Step 4: Attribute label on each edge
       if (!dimmed) {
         const pairKey = [a,b].sort().join('-');
-        if (!drawnEdgePairs.has(pairKey)) {
-          drawnEdgePairs.add(pairKey);
-          const edgeData = edges.find(e => (e.from===a && e.to===b) || (e.from===b && e.to===a));
+        if (!drawnLabels.has(pairKey)) {
+          drawnLabels.add(pairKey);
+          const edgeData = edges.find(e => (e.from===a&&e.to===b)||(e.from===b&&e.to===a));
           if (edgeData) {
-            const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
-            const labelAlpha = isFocused ? 1.0 : 0.75;
-            // Small pill background
-            ctx.font = 'bold 10px Share Tech Mono, monospace';
-            const label = String(edgeData[metric]);
-            const tw = ctx.measureText(label).width;
-            ctx.fillStyle = '#0a0c10cc';
+            const mx = (p1.x+p2.x)/2, my = (p1.y+p2.y)/2;
+            const val = edgeData[currentMetric];
+            const unitMap = { distance:'km', time:'min', fuel:'L' };
+            const labelText = `${val} ${unitMap[currentMetric]}`;
+            ctx.font = `bold 10px Share Tech Mono, monospace`;
+            const tw = ctx.measureText(labelText).width;
+            const pad = 5, bh = 16;
+            // pill bg
+            ctx.fillStyle = '#03091fee';
             ctx.beginPath();
-            ctx.roundRect(mx - tw/2 - 4, my - 8, tw + 8, 16, 3);
+            if (ctx.roundRect) ctx.roundRect(mx-tw/2-pad, my-bh/2, tw+pad*2, bh, 3);
+            else ctx.rect(mx-tw/2-pad, my-bh/2, tw+pad*2, bh);
             ctx.fill();
-            ctx.fillStyle = color + Math.round(labelAlpha * 255).toString(16).padStart(2,'0');
+            // pill border
+            ctx.strokeStyle = color + '44'; ctx.lineWidth = 1;
+            ctx.stroke();
+            // text
+            ctx.fillStyle = color + (isFocused ? 'ff' : 'cc');
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            ctx.fillText(label, mx, my);
+            ctx.fillText(labelText, mx, my);
           }
         }
       }
@@ -550,78 +860,182 @@ function drawGraph() {
   });
 
   // ── 3. Nodes ──
+  const nodeArr = [...nodes].sort();
   nodeArr.forEach(n => {
-    const { x, y } = pos[n];
+    const pos = nodePositions[n];
+    if (!pos) return;
+    const { x, y } = pos;
     const isStart = n === startNode;
-    const isInPath = activeNodes.has(n);
-    const isFocusedNode = hasFocus ? focusedNodes.has(n) : isInPath;
+    const isActive = activeNodes.has(n);
+    const isSel = selectedNode === n;
+    const isFocused = hasFocus ? focusedNodes.has(n) : isActive;
     const isDimmed = hasFocus && !focusedNodes.has(n) && !isStart;
-    const isDestination = !isStart && isInPath;
+    const nodeAlpha = isDimmed ? 0.2 : 1;
 
     // Glow
-    if (isStart && !isDimmed) {
-      const g = ctx.createRadialGradient(x, y, 0, x, y, 28);
-      g.addColorStop(0, '#ffd16650'); g.addColorStop(1, 'transparent');
-      ctx.beginPath(); ctx.arc(x, y, 28, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
-    } else if (isFocusedNode && !isStart && !isDimmed) {
-      const g = ctx.createRadialGradient(x, y, 0, x, y, 20);
-      g.addColorStop(0, color + '33'); g.addColorStop(1, 'transparent');
-      ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+    if (!isDimmed) {
+      const glowColor = isStart ? '#fe3e8a' : (isSel ? '#fe6675' : color);
+      const glowR = isStart ? 34 : (isSel ? 30 : 24);
+      const g = ctx.createRadialGradient(x, y, 0, x, y, glowR);
+      g.addColorStop(0, glowColor + (isStart?'40':(isSel?'30':'1e')));
+      g.addColorStop(1, 'transparent');
+      ctx.beginPath(); ctx.arc(x, y, glowR, 0, Math.PI*2); ctx.fillStyle = g; ctx.fill();
     }
 
-    const nodeAlpha = isDimmed ? 0.25 : 1;
-    const rad = isStart ? 16 : (isInPath ? 13 : 10);
-    const fillColor = isStart ? '#ffd166' : (isFocusedNode && !isDimmed ? color : '#141920');
-    const strokeColor = isStart ? '#ffd166' : (isInPath && !isDimmed ? color : '#2a3a4a');
-
+    const rad = isStart ? 22 : (isSel ? 21 : (isActive && !isDimmed ? 19 : 17));
     ctx.globalAlpha = nodeAlpha;
-    ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2);
-    ctx.fillStyle = fillColor; ctx.strokeStyle = strokeColor;
-    ctx.lineWidth = isStart || (isInPath && !isDimmed) ? 2 : 1;
+
+    // Node fill — start node gets pink gradient, others dark navy with blue tint
+    const fillColor = isStart ? null : (isSel ? 'rgba(254,102,117,0.25)' : (isFocused && !isDimmed ? 'rgba(254,62,138,0.14)' : '#091238'));
+    const strokeColor = isStart ? '#fe0060' : (isSel ? '#fe6675' : (isActive && !isDimmed ? color : '#1e3068'));
+
+    ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI*2);
+    if (isStart) {
+      const grad = ctx.createLinearGradient(x-rad, y-rad, x+rad, y+rad);
+      grad.addColorStop(0, '#fe3e8a'); grad.addColorStop(1, '#fe0060');
+      ctx.fillStyle = grad;
+    } else {
+      ctx.fillStyle = fillColor;
+    }
+    ctx.strokeStyle = strokeColor; ctx.lineWidth = isStart || isSel ? 2.5 : 1.5;
     ctx.fill(); ctx.stroke();
 
-    ctx.font = `${isStart || (isFocusedNode && !isDimmed) ? 'bold ' : ''}12px Barlow, sans-serif`;
-    ctx.fillStyle = (isStart || (isFocusedNode && !isDimmed)) && !isDimmed ? (isStart ? '#000' : '#000') : '#8899aa';
+    // Label — bigger and always readable
+    const labelColor = isStart ? '#fff' : (isSel ? '#fe8a96' : (isFocused && !isDimmed ? '#e8d0e8' : '#8899bb'));
+    ctx.font = `bold 13px Barlow, sans-serif`;
+    ctx.fillStyle = labelColor;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(n, x, y);
     ctx.globalAlpha = 1;
 
-    // "START" label under start node
     if (isStart) {
-      ctx.font = 'bold 9px Share Tech Mono, monospace';
-      ctx.fillStyle = '#ffd166bb';
+      ctx.font = 'bold 8px Share Tech Mono, monospace';
+      ctx.fillStyle = '#fe3e8aaa';
       ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText('START', x, y + rad + 4);
+      ctx.fillText('START', x, y + rad + 3);
     }
-  });
-
-  // ── 4. Legend ──
-  const legendItems = [
-    { c: '#ffd166', shape: 'circle', l: `Start Node${startNode ? ` (Node ${startNode})` : ''}` },
-    { c: color,     shape: 'line',   l: `Optimal paths (${metric})` },
-  ];
-  if (hasFocus) legendItems.push({ c: color, shape: 'bright', l: `Highlighted: Node ${hoveredDest}` });
-
-  legendItems.forEach(({ c, shape, l }, i) => {
-    const ly = H - 18 - i * 20;
-    if (shape === 'circle') {
-      ctx.beginPath(); ctx.arc(16, ly, 5, 0, Math.PI * 2); ctx.fillStyle = c; ctx.fill();
-    } else if (shape === 'line') {
-      ctx.beginPath(); ctx.moveTo(8, ly); ctx.lineTo(24, ly);
-      ctx.strokeStyle = c + 'aa'; ctx.lineWidth = 2; ctx.stroke();
-      ctx.fillStyle = c + 'aa'; drawArrow(ctx, 8, ly, 24, ly, 0);
-    } else {
-      ctx.beginPath(); ctx.moveTo(8, ly); ctx.lineTo(24, ly);
-      ctx.strokeStyle = c; ctx.lineWidth = 3; ctx.stroke();
+    if (isSel && !isStart) {
+      ctx.font = 'bold 8px Share Tech Mono, monospace';
+      ctx.fillStyle = '#fe667599';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText('SEL', x, y + rad + 3);
     }
-    ctx.font = '11px Barlow, sans-serif'; ctx.fillStyle = '#c8d8e8cc';
-    ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(l, 32, ly);
   });
 }
 
-window.addEventListener('resize', () => { if (edges.length) drawGraph(); });
+// ──────────────────────────────────────────────
+//  Interactivity: Node selection
+// ──────────────────────────────────────────────
+function selectNode(n) {
+  selectedNode = selectedNode === n ? null : n;
+  // Update pill UI
+  document.querySelectorAll('.node-pill').forEach(p => p.classList.toggle('selected', p.dataset.node === selectedNode));
+  // Show adjacency
+  renderAdjacencyList(selectedNode);
+  drawGraph();
+}
 
-// ── Dijkstra ──
+function renderAdjacencyList(n) {
+  const el = document.getElementById('adjList');
+  if (!n || !adjacency[n]) {
+    el.innerHTML = '<div class="empty-state" style="padding:20px"><span class="empty-icon">⇄</span>Select a node above</div>';
+    document.getElementById('adjListCount').textContent = '0';
+    return;
+  }
+  const conns = adjacency[n];
+  document.getElementById('adjListCount').textContent = conns.length;
+  let html = `<div class="adj-row adj-header">
+    <div class="adj-cell idx">#</div>
+    <div class="adj-cell">To Node</div>
+    <div class="adj-cell adj-val-dist">Dist(km)</div>
+    <div class="adj-cell adj-val-time">Time(min)</div>
+  </div>`;
+  // Need 4 columns: idx, to, distance, time (fuel shown on hover)
+  // Actually let's do 4: idx, to, dist, time+fuel stacked
+  conns.forEach((c, i) => {
+    html += `<div class="adj-row">
+      <div class="adj-cell idx">${i+1}</div>
+      <div class="adj-cell node-ref">${c.to}</div>
+      <div class="adj-cell adj-val-dist">${c.distance}</div>
+      <div class="adj-cell adj-val-time" style="font-size:0.64rem"><span style="color:var(--time-color)">${c.time}</span> <span style="color:var(--muted);font-size:0.58rem">/ </span><span style="color:var(--fuel-color)">${c.fuel}L</span></div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+// ──────────────────────────────────────────────
+//  Canvas hover — edge tooltip
+// ──────────────────────────────────────────────
+document.getElementById('graphCanvas').addEventListener('mousemove', e => {
+  const canvas = document.getElementById('graphCanvas');
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  const scaleX = parseFloat(canvas.style.width) / canvas.width * (window.devicePixelRatio||1);
+  const cx = mx / scaleX, cy = my / scaleX; // logical coords ... simpler:
+  const lx = mx, ly = my; // styles are already logical
+
+  let foundEdge = null;
+  const HIT = 12; // px from edge center midpoint for hit detection
+  for (const edge of edges) {
+    const p1 = nodePositions[edge.from], p2 = nodePositions[edge.to];
+    if (!p1 || !p2) continue;
+    const dx = p2.x - p1.x, dy = p2.y - p1.y;
+    const len = Math.sqrt(dx*dx+dy*dy);
+    if (len < 1) continue;
+    const t = Math.max(0, Math.min(1, ((lx-p1.x)*dx + (ly-p1.y)*dy) / (len*len)));
+    const px = p1.x + t*dx, py = p1.y + t*dy;
+    const dist = Math.sqrt((lx-px)**2 + (ly-py)**2);
+    if (dist < HIT) { foundEdge = edge; break; }
+  }
+
+  const tooltip = document.getElementById('edgeTooltip');
+  if (foundEdge) {
+    document.getElementById('ttEdge').textContent = `${foundEdge.from}  →  ${foundEdge.to}`;
+    document.getElementById('ttDist').textContent = foundEdge.distance + ' km';
+    document.getElementById('ttTime').textContent = foundEdge.time + ' min';
+    document.getElementById('ttFuel').textContent = foundEdge.fuel + ' L';
+    tooltip.style.display = 'block';
+    tooltip.style.left = (e.clientX + 14) + 'px';
+    tooltip.style.top  = (e.clientY - 40) + 'px';
+  } else {
+    tooltip.style.display = 'none';
+  }
+});
+document.getElementById('graphCanvas').addEventListener('mouseleave', () => {
+  document.getElementById('edgeTooltip').style.display = 'none';
+});
+
+// Canvas click — select node
+document.getElementById('graphCanvas').addEventListener('click', e => {
+  const canvas = document.getElementById('graphCanvas');
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  let closest = null, closestDist = 20;
+  [...nodes].forEach(n => {
+    const pos = nodePositions[n];
+    if (!pos) return;
+    const d = Math.sqrt((mx-pos.x)**2 + (my-pos.y)**2);
+    if (d < closestDist) { closestDist = d; closest = n; }
+  });
+  if (closest) selectNode(closest);
+});
+
+// ──────────────────────────────────────────────
+//  Metric tabs
+// ──────────────────────────────────────────────
+function switchMetricTab(metric, el) {
+  currentMetric = metric;
+  document.getElementById('displayMetric').value = metric;
+  document.querySelectorAll('.metric-tab').forEach(t => {
+    t.className = 'metric-tab';
+    if (t === el) t.classList.add('active-' + metric.slice(0,4));
+  });
+  drawGraph();
+}
+
+// ──────────────────────────────────────────────
+//  Dijkstra
+// ──────────────────────────────────────────────
 function dijkstra(startNode, weightKey) {
   const dist = {}, prev = {}, visited = new Set(), nodeArr = [...nodes];
   nodeArr.forEach(n => { dist[n] = Infinity; prev[n] = null; });
@@ -629,127 +1043,117 @@ function dijkstra(startNode, weightKey) {
   const adj = {};
   nodeArr.forEach(n => adj[n] = []);
   edges.forEach(e => {
-    adj[e.from].push({ node: e.to, weight: e[weightKey] });
-    adj[e.to].push({ node: e.from, weight: e[weightKey] });
+    adj[e.from].push({ node: e.to,   weight: e[weightKey] });
+    adj[e.to].push({  node: e.from,  weight: e[weightKey] });
   });
   while (true) {
     let u = null;
-    nodeArr.forEach(n => { if (!visited.has(n) && (u === null || dist[n] < dist[u])) u = n; });
-    if (u === null || dist[u] === Infinity) break;
+    nodeArr.forEach(n => { if (!visited.has(n) && (u===null || dist[n]<dist[u])) u=n; });
+    if (u===null || dist[u]===Infinity) break;
     visited.add(u);
-    adj[u].forEach(({ node: v, weight }) => { const alt = dist[u] + weight; if (alt < dist[v]) { dist[v] = alt; prev[v] = u; } });
+    adj[u].forEach(({ node: v, weight }) => { const alt = dist[u]+weight; if (alt<dist[v]) { dist[v]=alt; prev[v]=u; } });
   }
-  const paths = {};
+  const pathsOut = {};
   nodeArr.forEach(n => {
-    if (n === startNode) return;
-    const path = []; let cur = n;
-    while (cur !== null) { path.unshift(cur); cur = prev[cur]; }
-    paths[n] = { path, cost: dist[n] };
+    if (n===startNode) return;
+    const path=[]; let cur=n;
+    while (cur!==null) { path.unshift(cur); cur=prev[cur]; }
+    pathsOut[n] = { path, cost: dist[n] };
   });
-  return paths;
+  return pathsOut;
 }
 
-// ── All simple paths (for alternatives) ──
 function allPaths(startNode, endNode, weightKey) {
-  // Build adjacency with deduplication — avoid adding the same neighbor twice
   const adj = {};
   [...nodes].forEach(n => adj[n] = new Map());
-  edges.forEach(e => {
-    // Use Map keyed by neighbor so duplicates overwrite (last wins, doesn't matter — just no repeats)
-    adj[e.from].set(e.to, e[weightKey]);
-    adj[e.to].set(e.from, e[weightKey]);
-  });
-
-  const seenPaths = new Set(); // deduplicate by path signature
-  const results = [];
+  edges.forEach(e => { adj[e.from].set(e.to, e[weightKey]); adj[e.to].set(e.from, e[weightKey]); });
+  const seenPaths = new Set(), results = [];
   const queue = [{ node: startNode, path: [startNode], cost: 0, visited: new Set([startNode]) }];
-
   while (queue.length) {
     const { node, path, cost, visited } = queue.shift();
-    if (node === endNode && path.length > 1) {
-      const sig = path.join(',');
-      if (!seenPaths.has(sig)) {
-        seenPaths.add(sig);
-        results.push({ path: [...path], cost });
-      }
+    if (node===endNode && path.length>1) {
+      const sig=path.join(',');
+      if (!seenPaths.has(sig)) { seenPaths.add(sig); results.push({ path:[...path], cost }); }
       continue;
     }
     adj[node].forEach((weight, next) => {
       if (!visited.has(next)) {
         const nv = new Set(visited); nv.add(next);
-        queue.push({ node: next, path: [...path, next], cost: cost + weight, visited: nv });
+        queue.push({ node: next, path:[...path,next], cost:cost+weight, visited:nv });
       }
     });
-    if (results.length > 50) break;
+    if (results.length > 40) break;
   }
-  return results.sort((a, b) => a.cost - b.cost);
+  return results.sort((a,b)=>a.cost-b.cost);
 }
 
-// ── Find best starting node ──
 function findBestNode(weightKey) {
-  let bestNode = null, bestTotal = Infinity;
+  let bestNode=null, bestTotal=Infinity;
   const allResults = {};
   [...nodes].sort().forEach(n => {
     const paths = dijkstra(n, weightKey);
-    const total = Object.values(paths).reduce((s, p) => s + (isFinite(p.cost) ? p.cost : 0), 0);
+    const total = Object.values(paths).reduce((s,p) => s + (isFinite(p.cost)?p.cost:0), 0);
     allResults[n] = { paths, total };
-    if (total < bestTotal) { bestTotal = total; bestNode = n; }
+    if (total<bestTotal) { bestTotal=total; bestNode=n; }
   });
   return { bestNode, bestTotal, allResults };
 }
 
-// ── Render routes ──
+// ──────────────────────────────────────────────
+//  Render route list
+// ──────────────────────────────────────────────
 function renderRoutes(containerId, paths, metricKey, unit, startNode) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
   const sorted = Object.keys(paths).sort();
   if (!sorted.length) { container.innerHTML = '<div class="no-data">NO ROUTES COMPUTED</div>'; return; }
 
-  let totalCost = 0, reachableCount = 0;
+  let totalCost=0, reachable=0;
   sorted.forEach(dest => {
     const { path, cost } = paths[dest];
     const item = document.createElement('div');
     item.className = 'route-item';
-    if (path.length <= 1 || !isFinite(cost)) {
-      item.innerHTML = `<div class="route-dest"><span class="dest-name">→ Node ${dest}</span><span class="dest-value">∞</span></div><div class="route-path"><span style="color:var(--muted)">No path found</span></div>`;
+    if (path.length<=1 || !isFinite(cost)) {
+      item.innerHTML = `<div class="route-dest"><span class="dest-name">→ Node ${dest}</span><span class="dest-value">∞</span></div><div class="route-path"><span style="color:var(--muted)">Unreachable</span></div>`;
       container.appendChild(item); return;
     }
-    totalCost += cost; reachableCount++;
+    totalCost += cost; reachable++;
+    const pathHtml = path.map(n=>`<span class="node-chip">${n}</span>`).join('<span class="arrow">→</span>');
     const alts = allPaths(startNode, dest, metricKey);
-    const pathHtml = path.map(n => `<span class="node-chip">${n}</span>`).join('<span class="arrow"> → </span>');
+    const optSig = path.join(','); const seenSigs = new Set([optSig]); const others = [];
+    for (const a of alts) { const sig=a.path.join(','); if (!seenSigs.has(sig)) { seenSigs.add(sig); others.push(a); } if (others.length>=3) break; }
     const altId = `alt-${containerId}-${dest}`;
-    const optimalSig = path.join(',');
-    const seenSigs = new Set([optimalSig]);
-    const others = [];
-    for (const a of alts) {
-      const sig = a.path.join(',');
-      if (!seenSigs.has(sig)) { seenSigs.add(sig); others.push(a); }
-      if (others.length >= 4) break;
-    }
     const altRows = others.map(a => {
-      const ap = a.path.map(n => `<span class="node-chip">${n}</span>`).join('<span class="arrow"> → </span>');
+      const ap = a.path.map(n=>`<span class="node-chip">${n}</span>`).join('<span class="arrow">→</span>');
       return `<div class="alt-path-row"><div class="route-path">${ap}</div><span style="margin-left:8px">${+a.cost.toFixed(2)} ${unit}</span></div>`;
     }).join('');
     item.innerHTML = `
       <div class="route-dest"><span class="dest-name">→ Node ${dest}</span><span class="dest-value">${+cost.toFixed(2)} ${unit}</span></div>
       <div class="route-path">${pathHtml}</div>
-      ${others.length ? `<span class="alt-toggle" onclick="toggleAlt('${altId}')">▸ ${others.length} alternative route${others.length>1?'s':''}</span><div class="alt-paths" id="${altId}">${altRows}</div>` : ''}`;
+      ${others.length ? `<span class="alt-toggle" onclick="toggleAlt('${altId}')">▸ ${others.length} alt route${others.length>1?'s':''}</span><div class="alt-paths" id="${altId}">${altRows}</div>` : ''}`;
     item.addEventListener('mouseenter', () => {
       hoveredDest = dest;
+      currentMetric = metricKey;
       document.getElementById('displayMetric').value = metricKey;
+      // Sync metric tabs
+      document.querySelectorAll('.metric-tab').forEach((t,i) => {
+        t.className='metric-tab';
+        const ms=['distance','time','fuel'];
+        if (ms[i]===metricKey) t.classList.add('active-'+metricKey.slice(0,4));
+      });
+      item.classList.add('hovered');
       drawGraph();
     });
     item.addEventListener('mouseleave', () => {
-      hoveredDest = null;
-      drawGraph();
+      hoveredDest = null; item.classList.remove('hovered'); drawGraph();
     });
     container.appendChild(item);
   });
 
   const tp = document.getElementById(containerId.replace('Routes','Total'));
-  if (tp && reachableCount > 0) {
+  if (tp && reachable>0) {
     document.getElementById(containerId.replace('Routes','TotalVal')).textContent = `${+totalCost.toFixed(2)} ${unit}`;
-    document.getElementById(containerId.replace('Routes','TotalSub')).textContent = `avg ${+(totalCost/reachableCount).toFixed(2)} ${unit} · ${reachableCount} routes`;
+    document.getElementById(containerId.replace('Routes','TotalSub')).textContent = `avg ${+(totalCost/reachable).toFixed(2)} ${unit} · ${reachable} routes`;
     tp.style.display = 'flex';
   }
 }
@@ -758,41 +1162,30 @@ function toggleAlt(id) {
   const el = document.getElementById(id);
   el.classList.toggle('open');
   el.previousElementSibling.textContent = el.previousElementSibling.textContent
-    .replace(el.classList.contains('open') ? '▸' : '▾', el.classList.contains('open') ? '▾' : '▸');
+    .replace(el.classList.contains('open')?'▸':'▾', el.classList.contains('open')?'▾':'▸');
 }
 
-// ── Main ──
+// ──────────────────────────────────────────────
+//  Main analysis
+// ──────────────────────────────────────────────
 function runAnalysis() {
   const nodeArr = [...nodes].sort();
   const distResult = findBestNode('distance');
   const timeResult = findBestNode('time');
   const fuelResult = findBestNode('fuel');
 
-  // Build per-node stats
   const nodeStats = {};
-  nodeArr.forEach(n => {
-    nodeStats[n] = {
-      dist: distResult.allResults[n].total,
-      time: timeResult.allResults[n].total,
-      fuel: fuelResult.allResults[n].total,
-    };
-  });
+  nodeArr.forEach(n => { nodeStats[n] = { dist: distResult.allResults[n].total, time: timeResult.allResults[n].total, fuel: fuelResult.allResults[n].total }; });
 
-  // Normalize and compute overall score (0 = best)
   const vals = m => nodeArr.map(n => nodeStats[n][m]);
-  const norm = (v, arr) => { const mn = Math.min(...arr), mx = Math.max(...arr); return mx===mn ? 0 : (v-mn)/(mx-mn); };
+  const norm = (v, arr) => { const mn=Math.min(...arr), mx=Math.max(...arr); return mx===mn?0:(v-mn)/(mx-mn); };
   nodeArr.forEach(n => {
-    nodeStats[n].score = norm(nodeStats[n].dist, vals('dist'))
-                       + norm(nodeStats[n].time, vals('time'))
-                       + norm(nodeStats[n].fuel, vals('fuel'));
+    nodeStats[n].score = norm(nodeStats[n].dist,vals('dist')) + norm(nodeStats[n].time,vals('time')) + norm(nodeStats[n].fuel,vals('fuel'));
   });
 
   let overallBest = nodeArr[0];
   nodeArr.forEach(n => { if (nodeStats[n].score < nodeStats[overallBest].score) overallBest = n; });
 
-  highlightNodes = { distance: distResult.bestNode, time: timeResult.bestNode, fuel: fuelResult.bestNode, overall: overallBest };
-
-  // Store path data for graph visualization
   graphPathData = {
     distance: { startNode: distResult.bestNode, paths: distResult.allResults[distResult.bestNode].paths },
     time:     { startNode: timeResult.bestNode, paths: timeResult.allResults[timeResult.bestNode].paths },
@@ -802,22 +1195,22 @@ function runAnalysis() {
   // Winner banner
   const ob = nodeStats[overallBest];
   document.getElementById('winnerNode').textContent = `Node ${overallBest}`;
-  document.getElementById('winnerDesc').textContent = `Lowest combined normalized score across all three metrics (score: ${+ob.score.toFixed(3)})`;
+  document.getElementById('winnerDesc').textContent = `Lowest combined normalized score across all metrics (score: ${+ob.score.toFixed(3)})`;
   document.getElementById('winnerScores').innerHTML = `
-    <div class="winner-score-item dist"><div class="ws-label">Total Distance</div><div class="ws-val">${+ob.dist.toFixed(2)} km</div></div>
-    <div class="winner-score-item time"><div class="ws-label">Total Time</div><div class="ws-val">${+ob.time.toFixed(2)} min</div></div>
-    <div class="winner-score-item fuel"><div class="ws-label">Total Fuel</div><div class="ws-val">${+ob.fuel.toFixed(2)} L</div></div>`;
+    <div class="ws-item d"><div class="ws-label">Total Dist</div><div class="ws-val">${+ob.dist.toFixed(2)} km</div></div>
+    <div class="ws-item t"><div class="ws-label">Total Time</div><div class="ws-val">${+ob.time.toFixed(2)} min</div></div>
+    <div class="ws-item f"><div class="ws-label">Total Fuel</div><div class="ws-val">${+ob.fuel.toFixed(2)} L</div></div>`;
 
-  // Ranking table
-  const ranked = [...nodeArr].sort((a, b) => nodeStats[a].score - nodeStats[b].score);
+  // Ranking
+  const ranked = [...nodeArr].sort((a,b) => nodeStats[a].score-nodeStats[b].score);
   const rankBody = document.getElementById('rankingBody');
   rankBody.innerHTML = '';
-  ranked.forEach((n, i) => {
+  ranked.forEach((n,i) => {
     const rc = i===0?'r1':i===1?'r2':i===2?'r3':'rn';
-    const isDist = n===distResult.bestNode, isTime = n===timeResult.bestNode, isFuel = n===fuelResult.bestNode, isOver = n===overallBest;
+    const isDist=n===distResult.bestNode, isTime=n===timeResult.bestNode, isFuel=n===fuelResult.bestNode, isOver=n===overallBest;
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><span class="rank-badge ${rc}">${i+1}</span>Node ${n}${isOver?' <span class="crown-tag">🏆</span>':''}</td>
+      <td><span class="rank-badge ${rc}">${i+1}</span>Node ${n}${isOver?' 🏆':''}</td>
       <td class="${isDist?'best-cell dist':''}">${+nodeStats[n].dist.toFixed(2)} km${isDist?' ★':''}</td>
       <td class="${isTime?'best-cell time':''}">${+nodeStats[n].time.toFixed(2)} min${isTime?' ★':''}</td>
       <td class="${isFuel?'best-cell fuel':''}">${+nodeStats[n].fuel.toFixed(2)} L${isFuel?' ★':''}</td>
@@ -825,18 +1218,27 @@ function runAnalysis() {
     rankBody.appendChild(tr);
   });
 
-  // Route panels
   document.getElementById('distBestNode').textContent = `Node ${distResult.bestNode}`;
   document.getElementById('timeBestNode').textContent = `Node ${timeResult.bestNode}`;
   document.getElementById('fuelBestNode').textContent = `Node ${fuelResult.bestNode}`;
   renderRoutes('distRoutes', distResult.allResults[distResult.bestNode].paths, 'distance', 'km', distResult.bestNode);
-  renderRoutes('timeRoutes', timeResult.allResults[timeResult.bestNode].paths, 'time', 'min', timeResult.bestNode);
-  renderRoutes('fuelRoutes', fuelResult.allResults[fuelResult.bestNode].paths, 'fuel', 'L', fuelResult.bestNode);
+  renderRoutes('timeRoutes', timeResult.allResults[timeResult.bestNode].paths, 'time',     'min', timeResult.bestNode);
+  renderRoutes('fuelRoutes', fuelResult.allResults[fuelResult.bestNode].paths, 'fuel',     'L',   fuelResult.bestNode);
 
   document.getElementById('resultsSection').style.display = 'block';
   document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
   drawGraph();
 }
+
+function resetView() {
+  selectedNode = null; hoveredDest = null; graphPathData = {};
+  document.querySelectorAll('.node-pill').forEach(p => p.classList.remove('selected'));
+  renderAdjacencyList(null);
+  document.getElementById('resultsSection').style.display = 'none';
+  drawGraph();
+}
+
+window.addEventListener('resize', () => { if (edges.length) { computeLayout(document.getElementById('layoutStyle').value); } });
 </script>
 </body>
 </html>
